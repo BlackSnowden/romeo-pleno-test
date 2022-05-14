@@ -1,0 +1,11 @@
+{
+  "extends": ["airbnb-base", "aibnb-typescript", "eslint-config-prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "eslint-plugin-prettier"],
+  "rules": {
+    "no-console": "off"
+  }
+}
