@@ -1,10 +1,8 @@
-import { GenericObject } from '@core/types'
-
-const environment = <GenericObject>{
+const environment = <{ [x: string]: string | undefined }>{
   linkapi_gateway_username: process.env.LINKAPI_GATEWAY_USERNAME,
   linkapi_gateway_password: process.env.LINKAPI_GATEWAY_PASSWORD,
 
-  logs_path: process.env.LOGS_PATH,
+  output_path: process.env.OUTPUT_PATH,
 
   mongo_protocol: process.env.MONGO_PROTOCOL,
   mongo_host: process.env.MONGO_HOST,

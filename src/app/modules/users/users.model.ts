@@ -3,6 +3,7 @@ import Users from './user.protocol'
 
 const Schema = new mongoose.Schema<Users>(
   {
+    id: { type: String, required: true, unique: true },
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     address: { type: String, required: true },

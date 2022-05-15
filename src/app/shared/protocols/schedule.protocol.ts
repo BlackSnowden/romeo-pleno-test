@@ -1,4 +1,5 @@
 type ScheduleOptions = {
+  name: string
   interval: {
     time: number
     unit: 'seconds' | 'minutes' | 'hours' | 'days'

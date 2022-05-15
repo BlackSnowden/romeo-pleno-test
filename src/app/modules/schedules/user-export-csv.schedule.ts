@@ -1,8 +1,8 @@
 import { scheduleService } from '@shared/services'
-import automation from '@modules/users/user.automation'
+import automation from '@modules/users/user-export-csv.automation'
 
 export default scheduleService({
-  name: 'users',
+  name: 'users-export-csv',
   interval: { time: 5, unit: 'seconds' },
   callback: automation,
   options: {

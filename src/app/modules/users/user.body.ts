@@ -1,4 +1,5 @@
 export default (user: any) => ({
+  id: user.id,
   fullName: `${user.firstName} ${user.lastName}`,
   email: user.email || 'N/A',
   address: user.street || 'N/A',

@@ -7,7 +7,7 @@ import Users from './users.model'
 export default async () => {
   const startIn = Date.now()
   const logUniqueKey = 'users-automation'
-  loggerService.success('Starting users automation', logUniqueKey)
+  loggerService.success('Starting automation', logUniqueKey)
 
   const users = await userController.getUsers()
   loggerService.success('Get all users from linkapi gateway', logUniqueKey, users)
@@ -47,5 +47,5 @@ export default async () => {
     },
   })
 
-  loggerService.success(`Users automation finished\nDuration: ${Date.now() - startIn}ms`, logUniqueKey)
+  loggerService.success(`Automation finished\nDuration: ${Date.now() - startIn}ms`, logUniqueKey)
 }

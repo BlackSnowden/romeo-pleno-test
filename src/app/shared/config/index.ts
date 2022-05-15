@@ -8,7 +8,7 @@ const get = (key: string): string | null => {
       return null
     }
     default: {
-      return String(constants[key])
+      return constants[key] || null
     }
   }
 }

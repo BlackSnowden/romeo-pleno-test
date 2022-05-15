@@ -4,8 +4,8 @@ import { ScheduleOptions } from '@shared/protocols'
 import { loggerService } from '@shared/services'
 import { getCronTime } from '@shared/helpers'
 
-export default ({ interval, callback, options }: ScheduleOptions) => {
-  const processId = `process-${Date.now()}`
+export default ({ name, interval, callback, options }: ScheduleOptions) => {
+  const processId = `${name}-${Date.now()}`
   queues.set(processId, { state: 'AWAITING', executions: 0 })
   const { executions = Infinity } = options || {}
 
