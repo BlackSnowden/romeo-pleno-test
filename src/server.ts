@@ -1,6 +1,6 @@
 import config from '@config'
 import { loggerService } from '@shared/services'
-import schedules from '@modules/schedules'
+import schedules from 'app/schedules'
 import server from './app'
 
 const serverPort = config.get('server_port')

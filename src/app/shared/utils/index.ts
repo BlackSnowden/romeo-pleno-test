@@ -2,3 +2,4 @@
 export { default as parseXmlToJson } from './xmlToJson.util'
 export { default as chunks } from './chunks.util'
 export { default as jsonToCsv } from './jsonToCsv.util'
+export { default as saveFile } from './saveFile.util'
