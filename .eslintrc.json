@@ -12,6 +12,7 @@
     "no-console": "warn",
     "no-restricted-syntax": "off",
     "no-await-in-loop": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-throw-literal": "off"
   }
 }

@@ -1,4 +1,4 @@
-interface Users {
+interface User {
   id: string
   fullName: string
   email: string
@@ -7,4 +7,4 @@ interface Users {
   phoneNumber: string
 }
 
-export default Users
+export default User

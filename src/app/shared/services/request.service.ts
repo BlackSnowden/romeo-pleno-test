@@ -7,9 +7,49 @@ const get = async ({ url, options }: RequestOptions) => {
       ...(options?.headers && { headers: options.headers }),
     })
     .then((response) => ({ success: true, data: response.data }))
-    .catch((error) => ({ success: false, data: error.response.data }))
+    .catch((error) => {
+      if (!error.response) {
+        return { success: false, data: error.message }
+      }
+
+      return { success: false, data: error.response.data }
+    })
 
   return { success, data }
 }
 
-export default { get }
+const post = async ({ url, body, options }: RequestOptions) => {
+  const { success, data } = await axios
+    .post(url, (body && body) || {}, {
+      ...(options?.headers && { headers: options.headers }),
+    })
+    .then((response) => ({ success: true, data: response.data }))
+    .catch((error) => {
+      if (!error.response) {
+        return { success: false, data: error.message }
+      }
+
+      return { success: false, data: error.response.data }
+    })
+
+  return { success, data }
+}
+
+const put = async ({ url, body, options }: RequestOptions) => {
+  const { success, data } = await axios
+    .put(url, (body && body) || {}, {
+      ...(options?.headers && { headers: options.headers }),
+    })
+    .then((response) => ({ success: true, data: response.data }))
+    .catch((error) => {
+      if (!error.response) {
+        return { success: false, data: error.message }
+      }
+
+      return { success: false, data: error.response.data }
+    })
+
+  return { success, data }
+}
+
+export default { get, post, put }

@@ -2,7 +2,7 @@ import { loggerService, dictionaryService } from '@shared/services'
 import { parallel, sleep } from '@shared/helpers'
 import userController from './user.controller'
 import userTransform from './user.body'
-import Users from './users.model'
+import User from './user.model'
 
 export default async () => {
   const startIn = Date.now()
@@ -36,7 +36,7 @@ export default async () => {
         const userContext = userTransform({ ...user, ...userAddress, ...userContact })
         loggerService.success('Transformed user', userId, userContext)
 
-        const createdUser = await Users.create(userContext)
+        const createdUser = await User.create(userContext)
         await createdUser.save()
         loggerService.success('User has been inserted into database', userId, createdUser)
 

@@ -3,6 +3,9 @@ import path from 'path'
 const environment = <{ [x: string]: string | undefined }>{
   linkapi_gateway_username: process.env.LINKAPI_GATEWAY_USERNAME,
   linkapi_gateway_password: process.env.LINKAPI_GATEWAY_PASSWORD,
+  gofile_token: process.env.GOFILE_TOKEN,
+  gofile_folderName_users_report: process.env.GOFILE_FOLDERNAME_USERS_REPORT,
+  gofile_folderId_root: process.env.GOFILE_FOLDERID_ROOT,
 
   output_path: process.env.OUTPUT_PATH,
 

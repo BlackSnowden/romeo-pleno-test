@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import Users from './user.protocol'
+import User from './user.protocol'
 
-const Schema = new mongoose.Schema<Users>(
+const Schema = new mongoose.Schema<User>(
   {
     id: { type: String, required: true, unique: true },
     fullName: { type: String, required: true },

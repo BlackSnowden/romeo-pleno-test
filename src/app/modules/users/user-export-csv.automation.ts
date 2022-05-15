@@ -1,15 +1,16 @@
-import { loggerService } from '@shared/services'
-import { jsonToCsv, saveFile } from '@shared/utils'
+import { loggerService, goFileService } from '@shared/services'
+import { jsonToCsv } from '@shared/utils'
 import config from '@config'
+import Folder from '@modules/gofile/folder.model'
 import userTransform from './user-export-csv.body'
-import Users from './users.model'
+import User from './user.model'
 
 export default async () => {
   const startIn = Date.now()
   const logUniqueKey = 'users-export-csv-automation'
   loggerService.success('Starting automation', logUniqueKey)
 
-  const users = await Users.find()
+  const users = await User.find()
   loggerService.success('Get all users from database', logUniqueKey, users)
 
   const transformedUsers = users.map(userTransform)
@@ -18,9 +19,24 @@ export default async () => {
   const csvContent = jsonToCsv(transformedUsers, ['id', 'fullName', 'email'])
   loggerService.success('Users report converted to csv', logUniqueKey, csvContent)
 
-  await saveFile(`/${config.get('output_path')}/Users Report/users.csv`, csvContent)
-    .then(() => loggerService.success(`Users report has been exported`, logUniqueKey))
-    .catch((error) => loggerService.error(`Error to save csv file`, logUniqueKey, error))
+  const usersReportsFolderName = config.get('gofile_folderName_users_report')
+  if (!usersReportsFolderName) {
+    loggerService.error(`No user reports folderName configured`, logUniqueKey)
+    return
+  }
 
+  const usersReportFolder = await Folder.findOne({ name: usersReportsFolderName })
+  if (!usersReportFolder) {
+    loggerService.error(`No user reports folder found`, logUniqueKey)
+    return
+  }
+
+  const { success, data } = await goFileService.uploadFile(csvContent, usersReportFolder.id)
+  if (!success) {
+    loggerService.error(`Couldn't upload file to GoFile`, logUniqueKey, data)
+    return
+  }
+
+  loggerService.success('File has been uploaded to GoFile', logUniqueKey, data)
   loggerService.success(`Automation finished\nDuration: ${Date.now() - startIn}ms`, logUniqueKey)
 }
