@@ -58,14 +58,14 @@ const createFolder = async (folderName: string) => {
   return { success: true, data: data.data }
 }
 
-const uploadFile = async (fileContent: string, folderId: string) => {
+const uploadFile = async (fileContent: Buffer, filename: string, folderId: string) => {
   const server = await getServer()
   if (!server.success) {
     return server
   }
 
   const formData = new FormData()
-  formData.append('file', fileContent, 'users.csv')
+  formData.append('file', fileContent, filename)
   formData.append('folderId', folderId)
   formData.append('token', token)
 
@@ -92,4 +92,32 @@ const uploadFile = async (fileContent: string, folderId: string) => {
   return { success: true, data: data.data }
 }
 
-export default { getServer, createFolder, uploadFile }
+const deleteFile = async (fileId: string) => {
+  const { success, data } = await requestService.put({
+    url: 'https://api.gofile.io/deleteContent',
+    options: {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    },
+    body: new URLSearchParams({
+      contentsId: fileId,
+      token,
+    }),
+  })
+
+  if (!success) {
+    if (data.status) {
+      return { success: false, data: data.status }
+    }
+
+    return { success: false, data }
+  }
+
+  if (data.status !== 'ok') {
+    return { success: false, data: `Couldn't delete file at GoFile: ${data.status || 'N/A'}` }
+  }
+  return { success: true, data: data.data }
+}
+
+export default { getServer, createFolder, uploadFile, deleteFile }

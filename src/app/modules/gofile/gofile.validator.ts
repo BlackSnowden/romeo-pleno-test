@@ -17,6 +17,11 @@ const uploadFile = <SchemaDefinition>{
     message: { match: 'Invalid folder name', required: 'Folder name is required' },
   },
   file: {
+    properties: {
+      type: {
+        type: String,
+      },
+    },
     required: true,
     message: { required: 'File is required' },
   },

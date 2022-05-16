@@ -16,8 +16,8 @@ export default async () => {
   const transformedUsers = users.map(userTransform)
   loggerService.success('Users report context', logUniqueKey, transformedUsers)
 
-  const csvContent = jsonToCsv(transformedUsers, ['id', 'fullName', 'email'])
-  loggerService.success('Users report converted to csv', logUniqueKey, csvContent)
+  const csvContent = Buffer.from(jsonToCsv(transformedUsers, ['id', 'fullName', 'email']))
+  loggerService.success('Users report csv has been converted to buffer', logUniqueKey)
 
   const usersReportsFolderName = config.get('gofile_folderName_users_report')
   if (!usersReportsFolderName) {
@@ -31,7 +31,7 @@ export default async () => {
     return
   }
 
-  const { success, data } = await goFileService.uploadFile(csvContent, usersReportFolder.id)
+  const { success, data } = await goFileService.uploadFile(csvContent, 'users.csv', usersReportFolder.id)
   if (!success) {
     loggerService.error(`Couldn't upload file to GoFile`, logUniqueKey, data)
     return

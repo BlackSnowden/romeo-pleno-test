@@ -7,8 +7,8 @@ const router = Router()
 
 const path = '/gofile'
 
-router.post(`${path}/createFolder`, validate(gofileValidator.createFolder), gofileController.createFolder)
-router.post(`${path}/uploadFile/:folderName`, validate(gofileValidator.uploadFile), gofileController.uploadFile)
+router.post(`${path}/folder`, validate(gofileValidator.createFolder), gofileController.createFolder)
+router.post(`${path}/:folderName/file`, validate(gofileValidator.uploadFile), gofileController.uploadFile)
 router.delete(`${path}/:folderName/:filename`, validate(gofileValidator.deleteFile), gofileController.deleteFile)
 
 export default router

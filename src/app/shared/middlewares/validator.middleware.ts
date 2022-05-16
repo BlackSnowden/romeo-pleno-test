@@ -24,7 +24,17 @@ const baseParameters = <SchemaDefinition>{
 const validate = (templateSchema: SchemaDefinition) => {
   const middleware = (request: Request, _response: Response, next: NextFunction) => {
     const getFromBodyRequest = ['PATCH', 'PUT', 'POST'].includes(request.method)
-    const params = getFromBodyRequest ? { ...request.body, ...request.params } : { ...request.query, ...request.params }
+    const files = Object.keys(request.files || {}).reduce(
+      (_newObj, key) => ({
+        ..._newObj,
+        [key]: { type: 'file' },
+      }),
+      {},
+    )
+
+    const params = getFromBodyRequest
+      ? { ...request.body, ...request.params, ...files }
+      : { ...request.query, ...request.params }
 
     const schema = new Schema({ ...templateSchema, ...(!getFromBodyRequest && baseParameters) })
     schema.typecaster({
