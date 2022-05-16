@@ -11,6 +11,11 @@ export default async () => {
   loggerService.success('Starting automation', logUniqueKey)
 
   const users = await User.find()
+  if (!users.length) {
+    loggerService.warn('No users found', logUniqueKey, [])
+    return
+  }
+
   loggerService.success('Get all users from database', logUniqueKey, users)
 
   const transformedUsers = users.map(userTransform)

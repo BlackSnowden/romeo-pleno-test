@@ -52,4 +52,22 @@ const put = async ({ url, body, options }: RequestOptions) => {
   return { success, data }
 }
 
-export default { get, post, put }
+const del = async ({ url, body, options }: RequestOptions) => {
+  const { success, data } = await axios
+    .delete(url, {
+      ...(options?.headers && { headers: options.headers }),
+      data: body,
+    })
+    .then((response) => ({ success: true, data: response.data }))
+    .catch((error) => {
+      if (!error.response) {
+        return { success: false, data: error.message }
+      }
+
+      return { success: false, data: error.response.data }
+    })
+
+  return { success, data }
+}
+
+export default { get, post, put, del }

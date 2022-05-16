@@ -93,7 +93,7 @@ const uploadFile = async (fileContent: Buffer, filename: string, folderId: strin
 }
 
 const deleteFile = async (fileId: string) => {
-  const { success, data } = await requestService.put({
+  const { success, data } = await requestService.del({
     url: 'https://api.gofile.io/deleteContent',
     options: {
       headers: {

@@ -77,7 +77,7 @@ const deleteFile = async (request: Request, response: Response) => {
     throw new Exception(`No folders found with name: ${params.folderName}`, StatusCodes.NOT_FOUND)
   }
 
-  const fileFound = await File.findOne({ name: params.filename })
+  const fileFound = await File.findOne({ name: params.filename, folderId: folderFound.id })
   if (!fileFound) {
     throw new Exception(`No files found with filename: ${params.filename}`, StatusCodes.NOT_FOUND)
   }
@@ -86,6 +86,8 @@ const deleteFile = async (request: Request, response: Response) => {
   if (!success) {
     throw new Exception(data, StatusCodes.BAD_REQUEST)
   }
+
+  await File.deleteOne({ id: fileFound.id })
 
   response.status(StatusCodes.OK).json({
     success: true,
