@@ -1,8 +1,9 @@
 import cron from 'cron'
-import queues from '@core/queues'
 import { ScheduleOptions } from '@shared/protocols'
 import { loggerService } from '@shared/services'
 import { getCronTime } from '@shared/helpers'
+
+const queues = new Map<string, { state: 'RUNNING' | 'AWAITING'; executions: number }>()
 
 export default ({ name, interval, callback, options }: ScheduleOptions) => {
   const processId = `${name}-${Date.now()}`
