@@ -5,7 +5,4 @@ export default scheduleService({
   name: 'users-export-csv',
   interval: { time: 10, unit: 'seconds' },
   callback: automation,
-  options: {
-    executions: 1,
-  },
 })

@@ -36,7 +36,7 @@ export default async () => {
     return
   }
 
-  const { success, data } = await goFileService.uploadFile(csvContent, 'users.csv', usersReportFolder.id)
+  const { success, data } = await goFileService.uploadFile(csvContent, `users_${Date.now()}.csv`, usersReportFolder.id)
   if (!success) {
     loggerService.error(`Couldn't upload file to GoFile`, logUniqueKey, data)
     return

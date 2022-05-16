@@ -1,0 +1,16 @@
+.git
+.vscode
+node_modules
+output
+.commitlinterrc.json
+.editorconfig
+.env.example
+.env.test
+.env
+.eslintrc.json
+.gitignore
+.huskyrc.json
+.lintstagedrc.json
+.prettierrc
+package-lock.json
+README.md
